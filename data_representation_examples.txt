@@ -1,0 +1,42 @@
+ 0001 0100
+
+1. Complement all of the bits
+
+ 1110 1011
+
+2. Add one to the result
+
+       11 
+ 1110 1011
++0000 0001
+----------
+ 1110 1100
+
+Shortcut method:
+
+1. Starting from the right, copy all 0s and the first 1
+2. Complement the rest of the bits
+
+0001 0100
+1110 1100
+
+What happens when we negate the largest negative number?
+
+1000 0000 (-128)
+1000 0000 (-128)
+
+ 1111 111
+ 0111 1111 (+127)
++0000 0001 (+1)
+----------
+ 1000 0000 (-128)
+
+Rules for signed integer overflow:
+
+(+) + (+) = (+)? Yes
+(+) + (+) = (-)? No (overflow)
+(-) + (-) = (-)? Yes
+(-) + (-) = (+)? No (overflow)
+
+(+) + (-) = (+)? Yes (e.g. 2 + -1 = 1)
+(+) + (-) = (-)? Yes (e.g. 1 + -2 = -1)
