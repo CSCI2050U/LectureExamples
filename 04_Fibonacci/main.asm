@@ -23,24 +23,30 @@ main:
   call scanf
   pop rcx
 
-  ; n           - rdx
-  ; count       - rax
-  ; lastFib     - r11
-  ; previousFib - rbx
-  mov rdx, [n]
-  mov r11, 1
-  mov rbx, 0
-  mov rax, 1
+  ; n             - rdx
+  ; count (index) - rax
+  ; lastFib       - r11
+  ; previousFib   - rbx
+  mov rdx, [n]  ; n (which fibonacci number do we want)
+  mov rax, 1    ; count (index)
+  mov r11, 1    ; newest fibonacci number
+  mov rbx, 0    ; older fibonacci number
 
-  cmp rax, rdx
+loopStart:
+  cmp rax, rdx      ; while (count != n)
   je printTheResult ; skip over the body of the loop
 
-  mov rdi, promptFormat
-  mov rsi, prompt
-  mov rax, 0
-  push rbx
-  call printf
-  pop rbx
+  ; calculate some fibs
+  mov rcx, r11      ; remember the previous fibonacci number 
+  add r11, rbx      ; r11 += rbx
+  mov rbx, rcx      ; rbx = temp
+
+  add rax, 1        ; count++
+
+  jmp loopStart
+
+  ; index: 0, 1, 2, 3, 4, 5, 6,  7,  8
+  ; fib:   0, 1, 1, 2, 3, 5, 8, 13, 21
 
 printTheResult:
   ; printf("The result is %d.\n", r11);
@@ -60,6 +66,6 @@ section .data
   prompt db "Enter a number: ", 0
 
   inputFormat db "%d", 0
-  n dq 8             ; int n = 0;
+  n dq 0             ; int n = 0;
 
   resultFormat db "The result is %d.", 0ah, 0dh, 0
