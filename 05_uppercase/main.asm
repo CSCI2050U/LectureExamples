@@ -6,29 +6,68 @@ global main
 
 section .text
 
+uppercase:
+  
+  ; loop over each character in 'message'
+  ;   change that character to uppercase (ASCII math)
+  ;   go to next character
+  ; until we encounter a null terminator (character == 0)
+
+  mov rsi, rdi
+  mov bl, 'a'
+  mov bh, 'z'
+
+nextChar:
+  mov al, [rsi]
+
+  cmp al, 0       ; check for null terminator
+  je endOfString  ; if null, return
+
+  ; check to ensure that it is a lowercase letter
+  cmp al, bl      ; is it before 'a'?
+  jl skipCharacter
+
+  cmp al, bh      ; is it after 'z'?
+  jg skipCharacter
+
+  ; change to uppercase
+  sub al, 32
+  mov [rsi], al
+
+skipCharacter:
+  inc rsi
+  jmp nextChar
+
+endOfString:
+  ret 
+
 main:
-  ; printf("%s", "Enter a number: ");
-  mov rdi, promptFormat
-  mov rsi, prompt
+  ; printf("Enter a message: ");
+  mov rdi, prompt
   mov rax, 0
-  push rbx
+  push rax
   call printf
-  pop rbx
+  pop rax
 
-  ; scanf("%d", &number);
+  ; scanf("%s", message);
   mov rdi, inputFormat
-  mov rsi, n
+  mov rsi, message
   mov rax, 0
-  push rcx
+  push rax
   call scanf
-  pop rcx
+  pop rax
 
-  ; some code here
+  ; convert to uppercase
+  ; uppercase(message);
+  mov rdi, message
+  push rax
+  call uppercase
+  pop rax
 
 printTheResult:
-  ; printf("The result is %d.\n", r11);
+  ; printf("The result is %s.\n", message);
   mov rdi, resultFormat
-  mov rsi, r11
+  mov rsi, message
   mov rax, 0
   push rbx
   call printf
@@ -36,13 +75,19 @@ printTheResult:
 
   ; exit(0)
   mov rax, 0
-  call exit
+  ret ; return 0
+  ; call exit
+
 
 section .data
-  promptFormat db "%s", 0
-  prompt db "Enter a number: ", 0
 
-  inputFormat db "%d", 0
-  n dq 0             ; int n = 0;
+  prompt db "Enter a message: ", 0
+  inputFormat db "%s", 0
+  resultFormat db "The result is %s.", 0ah, 0dh, 0
 
-  resultFormat db "The result is %d.", 0ah, 0dh, 0
+  another_message db "This is a string that already has UPPERCASE letters.", 0
+
+section .bss 
+
+  ; limit of 100 characters, declared here uninitialized
+  message resb 100
