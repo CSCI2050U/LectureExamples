@@ -6,33 +6,36 @@ global main
 
 section .text
 
+add5:
+  mov rax, [rsp+8]   ; 5
+  add rax, [rsp+16]  ; 4
+  add rax, [rsp+24]  ; 3
+  add rax, [rsp+32]  ; 2
+  add rax, [rsp+40]  ; 1
+
+  ret 40   ; mov rip, [rsp]
+
 main:
-  ; printf("Enter a message: ");
-  mov rdi, prompt
-  mov rax, 0
-  push rax
-  call printf
-  pop rax
 
-  ; scanf("%s", message);
-  mov rdi, inputFormat
-  mov rsi, message
-  mov rax, 0
-  push rax
-  call scanf
-  pop rax
+  mov rax, 1
+  push rax      ; push 1 onto the stack
+  mov rax, 2
+  push rax      ; push 2 onto the stack
+  mov rax, 3
+  push rax      ; push 3 onto the stack
+  mov rax, 4
+  push rax      ; push 4 onto the stack
+  mov rax, 5
+  push rax      ; push 5 onto the stack
 
-  ; convert to uppercase
-  ; uppercase(message);
-  mov rdi, message
-  push rax
-  call uppercase
-  pop rax
+  call add5
 
-printTheResult:
-  ; printf("The result is %s.\n", message);
+  ; the sum is in rax
+
+
+  ; printf("The sum is %d.\n", sum);
   mov rdi, resultFormat
-  mov rsi, message
+  mov rsi, rax
   mov rax, 0
   push rbx
   call printf
@@ -46,7 +49,5 @@ printTheResult:
 
 section .data
 
-  prompt db "Enter a message: ", 0
-  inputFormat db "%s", 0
-  resultFormat db "The result is %s.", 0ah, 0dh, 0
+  resultFormat db "The sum is %d.", 0ah, 0dh, 0
 
