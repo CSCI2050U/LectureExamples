@@ -2,18 +2,17 @@ extern printf
 
 global main
 
-section .text
+section .text 
 
 main:
-    ; printf("Hello, world!\n");
-    mov rdi, greeting 
-    mov rax, 0
-    push rax
-    call printf
-    pop rax
+  mov rdi, greeting
+  mov rax, 0
+  mov rbx, 0 ; unnecessary, but if it makes you feel better :)
+  push rbx
+  call printf
+  pop rbx
 
-    ret
+  ret
 
 section .data
-
-    greeting db "Hello, world!", 0ah, 0dh, 0
+  greeting db "Hello, world!", 0ah, 0dh, 0
