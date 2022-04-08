@@ -1,72 +1,69 @@
 extern printf
 extern scanf
-; extern exit
 
 global main
 
 section .text 
 
 main:
+
+  ; print a prompt asking for a number
   ; printf("Enter a number: ");
   mov rdi, numberPrompt
-  mov rax, 0 ; unnecessary, but this is where the return value will go
-  mov rbx, 0 ; unnecessary, but if it makes you feel better :)
-  push rbx
+  push rdx
   call printf
-  pop rbx
+  pop rdx
 
-  ; scanf("%d", &number);
-  mov rdi, numberFormatString
-  mov rsi, number
-  mov rax, 0
-  mov rbx, 0
-  push rbx
+  ; read in that number
+  ; scanf("%lli", &number);
+  mov rdi, numberFormat
+  mov rsi, number 
+  push rdx
   call scanf
-  pop rbx
+  pop rdx
 
-  ; determine if the number is odd or even
-  mov rax, [number]
+  ; check if that number is even or odd
+  ; if (number%2 == 0)
+  ; idiv rdx:rax / rcx, result -> rax, remainder -> rdx
   mov rdx, 0
-  mov rbx, 2
-  idiv rbx    ; divide rdx:rax by rbx (2), put the result in rax and the remainder in rdx
+  mov rax, [number]
+  mov rcx, 2
+  idiv rcx     ; "int" division (vs. "uint" - div rcx)
+  ; rdx contains either 0 or 1
 
-  ; check if rdx is equal to zero
+  ; if/else
   cmp rdx, 0
-  jne oddNumber
+  je printEven
 
-  ; if (the number is even)
-  ;   printf("The number %d is an even number.\n", number);
-  ; else
-  ;   printf("The number %d is an odd number.\n", number);
-
-evenNumber:
-  mov rdi, evenNumberString
+  ; print the odd message
+  ; printf("%lli is an odd number.\n", number);
+  mov rdi, oddMessage
   mov rsi, [number]
-  mov rax, 0
-  mov rbx, 0
-  push rbx
+  push rdx
   call printf
-  pop rbx
+  pop rdx
 
   jmp exitProgram
 
-oddNumber:
-  mov rdi, oddNumberString
+printEven:
+  ; print a message indicating even or odd
+  ; printf("%lli is an even number.\n", number);
+  mov rdi, evenMessage
   mov rsi, [number]
-  mov rax, 0
-  mov rbx, 0
-  push rbx
+  push rdx
   call printf
-  pop rbx
+  pop rdx
 
 exitProgram:
   ret
 
 section .data
   numberPrompt db "Enter a number: ", 0
-  numberFormatString db "%lli", 0    ; Note:  use %d for smaller integers, but %lli works for 64-bit!
+
+  numberFormat db "%lli", 0 ; %lli - this is the type code for long ints (64-bit)
   number dq 0
 
-  evenNumberString db "The number %lli is an even number.", 0ah, 0dh, 0
-  oddNumberString db "The number %lli is an odd number.", 0ah, 0dh, 0
+  evenMessage db "%lli is an even number.", 0ah, 0dh, 0
+  oddMessage db "%lli is an odd number.", 0ah, 0dh, 0
+  
   
