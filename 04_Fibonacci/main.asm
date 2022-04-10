@@ -34,13 +34,40 @@ main:
   pop rdx
 
   ; calculate the nth Fibonacci number (nth_fib)
-  ; TODO: loop to calculate each Fibonacci number consecutively
+  ; loop to calculate each Fibonacci number consecutively
+  ; rdx - n
+  ; rax - count (index)
+  ; r11 - currentFib
+  ; rbx - previousFib 
+  mov rdx, [n]
+  mov rax, 1
+  mov r11, 1  ; index 1 Fibonacci number (current)
+  mov rbx, 0  ; index 0 Fibonacci number (previous)
 
+loopStart:
+  ; exit condition
+  cmp rdx, rax 
+  je printResult
+
+  ; loop body
+
+  ; calculate the new Fibonacci number, by adding the previous two
+  mov rcx, r11   ; our new "previous"
+  add r11, rbx   ; our new "current"
+  mov rbx, rcx
+
+  ; increment the count
+  inc rax  ; rax++
+
+  jmp loopStart
+
+
+printResult:
   ; print out a message with that Fibonacci number
   ; printf("The %dth Fibonacci number is %d.\n", n, nth_fib);
   mov rdi, resultMessage
   mov rsi, [n]
-  mov rdx, [nth_fib]
+  mov rdx, r11
   push rdx
   call printf
   pop rdx
