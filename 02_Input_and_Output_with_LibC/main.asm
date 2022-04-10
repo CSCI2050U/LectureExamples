@@ -16,9 +16,9 @@ main:
   ; scanf("%s", name);
   mov rdi, nameFormat 
   mov rsi, name
-  push rcx ; this can be any 64-bit register
+  push rbx
   call scanf
-  pop rcx
+  pop rbx
 
   ; printf("Enter your cat's age: ");
   mov rdi, agePrompt
@@ -40,10 +40,6 @@ main:
   push rbx
   call printf
   pop rbx
-
-  ; exit(0);
-;   mov rax, 0 ; Note: this does not follow the System V ABI (rax for argument, and no stack alignment)
-;   call exit
 
   ret
 
