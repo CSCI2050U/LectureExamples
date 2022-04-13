@@ -5,73 +5,72 @@ global main
 
 section .text
 
-  main:
-    ; prompt the user to enter a message
-    ; printf("Enter a message: ");
-    mov rdi, messagePrompt
-    push rbx 
-    call printf 
-    pop rbx
+main:
 
-    ; read in the message
-    ; scanf("%s", message);
-    mov rdi, messageFormat
-    mov rsi, message
-    push rbx 
-    call scanf 
-    pop rbx
+  ; prompt the user to enter a string (message)
+  ; printf("Enter a message: ");
+  mov rdi, messagePrompt
+  push rbx
+  call printf
+  pop rbx
 
-    ; convert the message to uppercase
-    ; char *ptr = message;
-    ; while ((*ptr) != 0) {
-    ;    (*ptr) -= 32;
-    ; }
+  ; read in that string from the user
+  ; scanf("%s", message);
+  mov rdi, messageFormat
+  mov rsi, message 
+  push rbx
+  call scanf
+  pop rbx
 
-    mov rsi, message
+  ; convert that string to uppercase
+  ; convert character by character, in a loop
 
-nextChar:
-    ; al - lowest 8 bits of the rax (current character)
-    mov al, [rsi]
+  ; initialization
+  mov rsi, message
 
-    ; exit condition
-    cmp al, 0
-    je printResult
+nextCharacter:
+  mov al, [rsi]
 
-    ; verify that it is a lowercase character
-    ; if (((*ptr) <= 122) && ((*ptr) >= 97)) {
-    ; }
-    cmp al, 97
-    jl skipUppercase
+  ; check if we need to exit the loop
+  cmp al, 0
+  je printResult
 
-    cmp al, 122
-    jg skipUppercase
+  ; check if the character is before the start of the lowercase alphabet (a)
+  cmp al, 97
+  jl skipChar
 
-    ; convert this character to uppercase
-    ; subtract 32
-    sub al, 32
+  ; check if the character is after the end of the lowercase alphabet (z)
+  cmp al, 122
+  jg skipChar
 
-    ; store the new character
-    mov [rsi], al
+  ; convert one character to uppercase
+  sub al, 32
+  mov [rsi], al
 
-skipUppercase:
-    inc rsi
-    jmp nextChar
+skipChar:
+  ; increment
+  add rsi, 1  ; increment by the array element type size
+  ; inc rsi  
+
+  jmp nextCharacter
 
 printResult:
-    ; print the result message
-    ; printf("The uppercase message is %s\n", message);
-    mov rdi, resultMessage
-    mov rsi, message
-    push rbx 
-    call printf 
-    pop rbx
+  ; print the converted message
+  ; printf("The message in uppercase is %s\n", message);
+  mov rdi, resultFormat
+  mov rsi, message 
+  push rbx
+  call printf 
+  pop rbx
+
+  ret
 
 section .data
   messagePrompt db "Enter a message: ", 0
 
   messageFormat db "%s", 0
 
-  resultMessage db "The uppercase message is %s", 0ah, 0dh, 0
+  resultFormat db "The message in uppercase is %s", 0ah, 0dh, 0
 
 section .bss
   message resb 51
