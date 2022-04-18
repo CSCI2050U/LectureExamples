@@ -14,7 +14,7 @@ main:
   pop rbx
 
   ; scanf("%s", name);
-  mov rdx, nameFormat 
+  mov rdi, nameFormat 
   mov rsi, name
   push rbx
   call scanf
