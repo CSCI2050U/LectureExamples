@@ -56,88 +56,87 @@
     <a name="circuit" val="HA"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
-    <comp lib="0" loc="(110,150)" name="Pin">
+    <comp lib="0" loc="(120,160)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="label" val="B"/>
     </comp>
-    <comp lib="0" loc="(110,70)" name="Pin">
+    <comp lib="0" loc="(120,90)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="label" val="A"/>
     </comp>
-    <comp lib="0" loc="(330,140)" name="Pin">
+    <comp lib="0" loc="(330,100)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="S"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(330,150)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
       <a name="label" val="C"/>
       <a name="output" val="true"/>
     </comp>
-    <comp lib="0" loc="(330,80)" name="Pin">
-      <a name="appearance" val="NewPins"/>
-      <a name="facing" val="west"/>
-      <a name="label" val="S"/>
-      <a name="output" val="true"/>
-    </comp>
-    <comp lib="1" loc="(270,140)" name="AND Gate">
+    <comp lib="1" loc="(250,150)" name="AND Gate">
       <a name="size" val="30"/>
     </comp>
-    <comp lib="1" loc="(280,80)" name="XOR Gate">
+    <comp lib="1" loc="(260,100)" name="XOR Gate">
       <a name="size" val="30"/>
     </comp>
-    <wire from="(110,150)" to="(150,150)"/>
-    <wire from="(110,70)" to="(170,70)"/>
-    <wire from="(150,150)" to="(240,150)"/>
-    <wire from="(150,90)" to="(150,150)"/>
-    <wire from="(150,90)" to="(240,90)"/>
-    <wire from="(170,130)" to="(240,130)"/>
-    <wire from="(170,70)" to="(170,130)"/>
-    <wire from="(170,70)" to="(240,70)"/>
-    <wire from="(270,140)" to="(330,140)"/>
-    <wire from="(280,80)" to="(330,80)"/>
+    <wire from="(120,160)" to="(160,160)"/>
+    <wire from="(120,90)" to="(180,90)"/>
+    <wire from="(160,110)" to="(160,160)"/>
+    <wire from="(160,110)" to="(220,110)"/>
+    <wire from="(160,160)" to="(220,160)"/>
+    <wire from="(180,140)" to="(220,140)"/>
+    <wire from="(180,90)" to="(180,140)"/>
+    <wire from="(180,90)" to="(220,90)"/>
+    <wire from="(250,150)" to="(330,150)"/>
+    <wire from="(260,100)" to="(330,100)"/>
   </circuit>
-  <circuit name="HA_Test">
+  <circuit name="FA">
     <a name="appearance" val="logisim_evolution"/>
-    <a name="circuit" val="HA_Test"/>
+    <a name="circuit" val="FA"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
-    <comp lib="0" loc="(690,40)" name="Pin">
-      <a name="appearance" val="NewPins"/>
-      <a name="facing" val="west"/>
-      <a name="label" val="S"/>
-      <a name="output" val="true"/>
-    </comp>
-    <comp lib="0" loc="(690,70)" name="Pin">
+    <comp lib="0" loc="(680,160)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
       <a name="label" val="Cout"/>
       <a name="output" val="true"/>
     </comp>
-    <comp lib="0" loc="(70,110)" name="Pin">
+    <comp lib="0" loc="(680,60)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="S"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(90,140)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="label" val="A"/>
     </comp>
-    <comp lib="0" loc="(70,130)" name="Pin">
+    <comp lib="0" loc="(90,160)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="label" val="B"/>
     </comp>
-    <comp lib="0" loc="(70,40)" name="Pin">
+    <comp lib="0" loc="(90,60)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="label" val="Cin"/>
     </comp>
-    <comp lib="1" loc="(660,70)" name="OR Gate">
-      <a name="size" val="30"/>
-    </comp>
-    <comp loc="(330,110)" name="HA"/>
-    <comp loc="(590,40)" name="HA"/>
-    <wire from="(330,110)" to="(340,110)"/>
-    <wire from="(330,130)" to="(600,130)"/>
-    <wire from="(340,60)" to="(340,110)"/>
-    <wire from="(340,60)" to="(370,60)"/>
-    <wire from="(590,40)" to="(690,40)"/>
-    <wire from="(590,60)" to="(630,60)"/>
-    <wire from="(600,80)" to="(600,130)"/>
-    <wire from="(600,80)" to="(630,80)"/>
-    <wire from="(660,70)" to="(690,70)"/>
-    <wire from="(70,110)" to="(110,110)"/>
-    <wire from="(70,130)" to="(110,130)"/>
-    <wire from="(70,40)" to="(370,40)"/>
+    <comp lib="1" loc="(670,160)" name="OR Gate"/>
+    <comp loc="(330,140)" name="HA"/>
+    <comp loc="(560,60)" name="HA"/>
+    <wire from="(330,160)" to="(590,160)"/>
+    <wire from="(330,80)" to="(330,140)"/>
+    <wire from="(330,80)" to="(340,80)"/>
+    <wire from="(560,60)" to="(680,60)"/>
+    <wire from="(560,80)" to="(590,80)"/>
+    <wire from="(590,140)" to="(620,140)"/>
+    <wire from="(590,160)" to="(590,180)"/>
+    <wire from="(590,180)" to="(620,180)"/>
+    <wire from="(590,80)" to="(590,140)"/>
+    <wire from="(670,160)" to="(680,160)"/>
+    <wire from="(90,140)" to="(110,140)"/>
+    <wire from="(90,160)" to="(110,160)"/>
+    <wire from="(90,60)" to="(340,60)"/>
   </circuit>
 </project>
