@@ -6,40 +6,58 @@ global main
 section .text 
 
 main:
-  ; printf("Enter your age: ");
-  mov rdi, agePrompt 
-  mov rax, 0
-  push rax
-  call printf 
-  pop rax
-
-  ; scanf("%d", &age);
-  mov rdi, ageFormat 
-  mov rsi, age
-  mov rax, 0
-  push rdx ; it can be any 64-bit register
-  call scanf 
-  pop rdx
-
-  ; add 5 to the age 
-  mov rsi, [age]
-  add rsi, 5
-
-  ; print("In 5 years, you will be %d years old.\n", age);
-  mov rdi, responseFormat
-  ; rsi still has age + 5
+  ; printf("What is your cat's name? ");
+  mov rdi, namePrompt
   mov rax, 0
   push r8
   call printf 
   pop r8
 
+  ; scanf("%s", name);
+  mov rdi, nameFormat 
+  mov rsi, name 
+  mov rax, 0
+  push r9  ; this can be any 64-bit register
+  call scanf 
+  pop r9
 
-exitProgram:
+  ; printf("What is your cat's age? ");
+  mov rdi, agePrompt
+  mov rax, 0
+  push r9 
+  call printf 
+  pop r9
+
+  ; scanf("%d", &age);
+  mov rdi, ageFormat
+  mov rsi, age 
+  mov rax, 0
+  push r9 
+  call scanf 
+  pop r9
+
+  ; printf("Your cat, %s, is %d years old.\n", name, age);
+  mov rdi, responseFormat
+  mov rsi, name 
+  mov rdx, [age]
+  mov rax, 0
+  push r9 
+  call printf 
+  pop r9
+
+  ; exit the program
   ret
 
 section .data
-  agePrompt db "Enter your age: ", 0
-  ageFormat db "%d", 0
-  age dq 0
+  namePrompt db "What is your cat's name? ", 0
+  nameFormat db "%s", 0
+  ;name db "                    ", 0
 
-  responseFormat db "In 5 years, you will be %d years old.", 0ah, 0dh, 0
+  agePrompt db "What is your cat's age? ", 0
+  ageFormat db "%d", 0
+
+  responseFormat db "Your cat, %s, is %d years old.", 0ah, 0dh, 0
+
+section .bss 
+  name resb 51
+  age resq 1
