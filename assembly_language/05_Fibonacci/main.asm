@@ -31,7 +31,38 @@ main:
 
   ; calculate the nth Fibonacci number
 
-  ; TODO: Write this code
+  ; calculate the nth Fibonacci number
+  ; n                  - rdx
+  ; count              - rsi
+  ; previous Fibonacci - r11
+  ; current Fibonacci  - r12
+  mov rdx, [n]
+  mov rsi, 1
+  mov r11, 0
+  mov r12, 1
+
+  ; for (int i = 1; i <= n; i++) {
+  ; while (i <= n) {
+
+nextFibonacci:
+  ; check the exit condition !(i < n)
+  cmp rsi, rdx
+  jge printResult
+
+  ; calculate the next Fibonacci number (r11 + r12)
+  mov r8, r12  ; old current Fibonacci (aka the new previous)
+  add r12, r11 ; new current
+  mov r11, r8  ; new previous
+
+  ; i++
+  inc rsi ; add rsi, 1
+
+  ; goto nextFibonacci
+  jmp nextFibonacci
+
+
+printResult:
+  mov [result], r12
 
   ; printf("The %dth Fibonacci number is %d.\n", n, result);
   mov rdi, resultFormat
