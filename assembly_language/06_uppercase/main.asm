@@ -40,11 +40,17 @@ nextChar:
   jl skipChar
 
   ; check to see if the character is after 'z'
+  cmp al, 122 ; 'z'
+  jg skipChar
 
   ; convert this character to uppercase (subtract 32)
+  sub al, 32
+  mov [rsi], al
 
 skipChar:
   ; go to the next character
+  inc rsi ; add rsi, 1
+  jmp nextChar
 
 printResult:
   ; printf("The string converted to uppercase is '%s'.\n", message);
@@ -56,6 +62,7 @@ printResult:
   pop r10
 
   ; exit the program
+  mov rax, 0
   ret
 
 section .data
