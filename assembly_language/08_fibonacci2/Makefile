@@ -5,3 +5,6 @@ all: fib_func.asm
 clean:
 	rm *.out
 	rm *.o
+
+run:
+	./fib_func.out
